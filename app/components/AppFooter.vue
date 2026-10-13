@@ -2,10 +2,11 @@
 import { site } from '~/data/site'
 
 const { t } = useI18n()
+const winter = site.winter
 const year = new Date().getFullYear()
 const ids = {
   Services: ['services', 'services', 'services', 'services', 'services', 'services'],
-  Company: ['how-it-works', 'why-us', 'network', 'reviews', 'faq'],
+  Company: ['how-it-works', 'why-us', 'network', 'partners', 'faq'],
   Support: ['quote', 'quote'],
 } as const
 const cols = [
@@ -19,6 +20,8 @@ const items = (k: string, n: number) => Array.from({ length: n }, (_, i) => t(`f
 
 <template>
   <footer class="ft">
+    <!-- TEMPORARY winter decoration: snow drift on top of the footer -->
+    <svg v-if="winter" class="ft__snow" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60V34c60-22 110-8 170-2 70 8 120-22 200-18 90 5 130 26 220 22 80-4 120-26 210-20 90 6 140 24 230 18 80-5 120-22 190-14 70 7 130 20 220 8v32z" /></svg>
     <div class="container">
       <div class="ft__top">
         <div class="ft__brand">
@@ -43,7 +46,8 @@ const items = (k: string, n: number) => Array.from({ length: n }, (_, i) => t(`f
 </template>
 
 <style scoped>
-.ft { background: var(--bg-alt); color: var(--fg); padding: clamp(56px, 7vw, 88px) 0 40px; border-top: 1px solid var(--line); }
+.ft__snow { position: absolute; left: 0; right: 0; bottom: 100%; width: 100%; height: 44px; fill: #eef4ff; filter: drop-shadow(0 -4px 10px rgb(120 160 255 / 0.25)); pointer-events: none; }
+.ft { position: relative; background: var(--bg-alt); color: var(--fg); padding: clamp(56px, 7vw, 88px) 0 40px; border-top: 1px solid var(--line); }
 .ft__top { display: flex; justify-content: space-between; gap: 48px; flex-wrap: wrap; padding-bottom: clamp(48px, 6vw, 72px); }
 .ft__brand { display: grid; gap: 20px; max-width: 320px; justify-items: start; }
 .ft__brand p { color: var(--mute); font-size: 15px; line-height: 1.55; }
@@ -58,5 +62,6 @@ const items = (k: string, n: number) => Array.from({ length: n }, (_, i) => t(`f
 .ft__bot ul { display: flex; gap: 28px; flex-wrap: wrap; }
 .ft__bot a:hover { color: var(--fg); }
 .ft__up { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--chip); color: var(--fg); transition: background 0.3s, transform 0.4s var(--ease), color 0.3s; }
-.ft__up:hover { background: var(--blue); color: #fff; transform: translateY(-3px); }
+.ft__up:hover { background: var(--blue); color: var(--on-accent); transform: translateY(-3px); }
 </style>
+

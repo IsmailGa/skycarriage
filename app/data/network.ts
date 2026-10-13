@@ -75,7 +75,7 @@ export function distanceKm(a: string, b: string) {
   return Math.round(2 * 6371 * Math.asin(Math.sqrt(h)))
 }
 
-/** Indicative express transit window (days) from great-circle distance: flight time + ~12h handling. */
+/** Indicative air transit window (days) from great-circle distance: flight time + ~12h handling. */
 export function transitDays(km: number): [number, number] {
   const days = Math.max(1, Math.ceil((km / 800 + 12) / 24))
   return [days, days + (km > 8000 ? 1 : 0)]

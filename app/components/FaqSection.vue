@@ -39,10 +39,11 @@ const toggle = (i: number) => (open.value = open.value === i ? null : i)
 .faq__item button { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 26px 0; text-align: left; font-family: var(--font-display); font-weight: 600; font-size: clamp(18px, 1.8vw, 22px); letter-spacing: -0.025em; line-height: 1.25; transition: color 0.3s; }
 .faq__item button:hover { color: var(--accent-text); }
 .faq__item i { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--card); border: 1px solid var(--line); transition: transform 0.5s var(--ease), background 0.3s, color 0.3s; }
-.faq__item.open i { transform: rotate(180deg); background: var(--blue); color: #fff; border-color: transparent; }
+.faq__item.open i { transform: rotate(180deg); background: var(--blue); color: var(--on-accent); border-color: transparent; }
 .faq__a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.55s var(--ease); }
 .faq__a > div { overflow: hidden; }
 .faq__a p { padding: 0 64px 28px 0; color: var(--mute); line-height: 1.6; font-size: 16px; }
 .faq__item.open .faq__a { grid-template-rows: 1fr; }
 @media (max-width: 900px) { .faq { grid-template-columns: 1fr; } .faq__head { position: static; } .faq__a p { padding-right: 0; } }
 </style>
+

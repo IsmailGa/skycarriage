@@ -22,7 +22,7 @@ const T = (o: V3) => { const [a, b] = P(o); return `${a.toFixed(1)} ${b.toFixed(
 const MAT = {
   kraft: ['#e3c291', '#cda46c', '#ad8550'],
   white: ['#ffffff', '#e8edf6', '#ccd5e4'],
-  blue: ['#9bb4ff', '#5f86ff', '#3f63d6'],
+  blue: ['#f4e2b4', '#dcb86f', '#b48b43'],
   slate: ['#5b6785', '#434d68', '#333c54'],
   wood: ['#d9b27c', '#bf9560', '#a37a48'],
   woodDark: ['#c39a63', '#a87f4d', '#8c6840'],
@@ -32,8 +32,8 @@ type Mat = keyof typeof MAT
 // ── parcels: a stack of five boxes
 interface Parcel { x: number; y: number; z: number; w: number; d: number; h: number; m: Mat; label?: string; tape?: boolean }
 const parcels: Parcel[] = [
-  { x: 0, y: 0, z: 0, w: 116, d: 96, h: 74, m: 'kraft', label: 'PRIORITY', tape: true },
-  { x: 24, y: 18, z: 74, w: 64, d: 54, h: 42, m: 'blue', label: 'EXPRESS', tape: true },
+  { x: 0, y: 0, z: 0, w: 116, d: 96, h: 74, m: 'kraft', label: 'AIR CARGO', tape: true },
+  { x: 24, y: 18, z: 74, w: 64, d: 54, h: 42, m: 'blue', label: 'DOCUMENTS', tape: true },
   { x: 124, y: 6, z: 0, w: 66, d: 84, h: 50, m: 'white', label: 'FRAGILE', tape: true },
   { x: 8, y: 104, z: 0, w: 66, d: 50, h: 38, m: 'kraft', tape: true },
   { x: 96, y: 98, z: 0, w: 46, d: 40, h: 26, m: 'slate' },
@@ -94,7 +94,7 @@ const orbitPath = (rx: number, ry: number) => `M ${-rx} 0 A ${rx} ${ry} 0 1 1 ${
 <template>
   <svg :class="['art', `art--${model}`, { 'art--decor': decorative }]" viewBox="0 0 480 400" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true" focusable="false">
     <defs>
-      <linearGradient :id="`${uid}curtain`" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4f7bff" /><stop offset="1" stop-color="#2447db" /></linearGradient>
+      <linearGradient :id="`${uid}curtain`" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d4c8a" /><stop offset="1" stop-color="#16294f" /></linearGradient>
       <linearGradient :id="`${uid}hull`" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" /><stop offset="0.6" stop-color="#eef2fa" /><stop offset="1" stop-color="#c9d3e6" /></linearGradient>
       <linearGradient :id="`${uid}wing`" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f7fc" /><stop offset="1" stop-color="#bcc8de" /></linearGradient>
       <radialGradient :id="`${uid}sphere`" cx="0.36" cy="0.3" r="0.85"><stop offset="0" stop-color="var(--art-sphere-a)" /><stop offset="1" stop-color="var(--art-sphere-b)" /></radialGradient>
@@ -115,8 +115,8 @@ const orbitPath = (rx: number, ry: number) => `M ${-rx} 0 A ${rx} ${ry} 0 1 1 ${
         <g v-for="p in parcelFaces" :key="p.x + '-' + p.y + '-' + p.z" class="float" :style="{ animationDelay: p.delay }">
           <polygon :points="p.left" :fill="MAT[p.m][1]" /><polygon :points="p.right" :fill="MAT[p.m][2]" /><polygon :points="p.top" :fill="MAT[p.m][0]" />
           <template v-if="p.tape">
-            <polygon :points="p.tapeTop" :fill="p.m === 'blue' ? '#dbe6ff' : p.m === 'slate' ? '#8c97b3' : '#f3e8cf'" opacity="0.95" />
-            <polygon :points="p.tapeLeft" :fill="p.m === 'blue' ? '#c4d4ff' : '#e6d7b6'" opacity="0.95" />
+            <polygon :points="p.tapeTop" :fill="p.m === 'blue' ? '#fff3d2' : p.m === 'slate' ? '#8c97b3' : '#f3e8cf'" opacity="0.95" />
+            <polygon :points="p.tapeLeft" :fill="p.m === 'blue' ? '#f2deb0' : '#e6d7b6'" opacity="0.95" />
           </template>
           <g v-if="p.lab" :transform="`matrix(${C} ${-S} 0 1 ${p.lab[0].toFixed(1)} ${p.lab[1].toFixed(1)})`">
             <rect width="44" height="26" rx="2" fill="#fff" /><rect width="44" height="8" rx="2" fill="#0a0b0d" />
@@ -145,9 +145,9 @@ const orbitPath = (rx: number, ry: number) => `M ${-rx} 0 A ${rx} ${ry} 0 1 1 ${
           <!-- brand panel on the side face -->
           <g :transform="`matrix(${C} ${-S} 0 1 ${uld.origin[0].toFixed(1)} ${(uld.origin[1] - 6).toFixed(1)})`">
             <rect x="8" y="0" width="108" height="52" rx="3" fill="#eef2fa" />
-            <rect x="8" y="0" width="108" height="4" fill="#2a59e6" /><rect x="8" y="48" width="108" height="4" fill="#2a59e6" />
+            <rect x="8" y="0" width="108" height="4" fill="#cfaa63" /><rect x="8" y="48" width="108" height="4" fill="#cfaa63" />
             <text x="16" y="23" font-size="13" font-weight="700" fill="#0a0b0d" font-family="Inter, Arial, sans-serif">SKYCARRIAGE</text>
-            <text x="16" y="33" font-size="5.4" letter-spacing="2.4" font-weight="600" fill="#2a59e6" font-family="Inter, Arial, sans-serif">LOGISTICS</text>
+            <text x="16" y="33" font-size="5.4" letter-spacing="2.4" font-weight="600" fill="#cfaa63" font-family="Inter, Arial, sans-serif">LOGISTICS</text>
             <text x="16" y="44" font-size="8" font-weight="700" fill="#0a0b0d" font-family="Inter, Arial, sans-serif">AKE 48213 SC</text>
           </g>
           <polyline :points="uld.side" fill="none" stroke="#1b2232" stroke-opacity="0.35" stroke-width="1.2" />
@@ -164,7 +164,7 @@ const orbitPath = (rx: number, ry: number) => `M ${-rx} 0 A ${rx} ${ry} 0 1 1 ${
           <g v-for="(b, i) in pal.stringers" :key="'s' + i"><polygon :points="b.left" :fill="MAT.woodDark[1]" /><polygon :points="b.right" :fill="MAT.woodDark[2]" /><polygon :points="b.top" :fill="MAT.woodDark[0]" /></g>
           <g v-for="(b, i) in pal.slats" :key="'t' + i"><polygon :points="b.left" :fill="MAT.wood[1]" /><polygon :points="b.right" :fill="MAT.wood[2]" /><polygon :points="b.top" :fill="MAT.wood[0]" /></g>
           <g v-for="(c, i) in pal.cargo" :key="'c' + i"><polygon :points="c.b.left" :fill="MAT[c.m][1]" /><polygon :points="c.b.right" :fill="MAT[c.m][2]" /><polygon :points="c.b.top" :fill="MAT[c.m][0]" /></g>
-          <g v-for="(s, i) in pal.straps" :key="'r' + i"><polygon :points="s.left" fill="#2a59e6" /><polygon :points="s.top" fill="#4f7bff" /></g>
+          <g v-for="(s, i) in pal.straps" :key="'r' + i"><polygon :points="s.left" fill="#cfaa63" /><polygon :points="s.top" fill="#cfaa63" /></g>
           <!-- stretch film -->
           <g fill="#fff" fill-opacity="0.13" stroke="#fff" stroke-opacity="0.55" stroke-width="1.4" stroke-linejoin="round"><polygon :points="pal.film.left" /><polygon :points="pal.film.right" /><polygon :points="pal.film.top" /></g>
           <path :d="`M ${T([20, 180, 40])} L ${T([50, 180, 120])}`" stroke="#fff" stroke-opacity="0.6" stroke-width="3" stroke-linecap="round" />
@@ -186,18 +186,18 @@ const orbitPath = (rx: number, ry: number) => `M ${-rx} 0 A ${rx} ${ry} 0 1 1 ${
         <!-- far wing -->
         <path d="M18 -10 L-48 -62 L-24 -66 L78 -16 Z" :fill="`url(#${uid}wing)`" opacity="0.85" />
         <!-- tail fin -->
-        <path d="M-150 -14 L-178 -82 L-150 -82 L-100 -16 Z" fill="#3f6bff" />
+        <path d="M-150 -14 L-178 -82 L-150 -82 L-100 -16 Z" fill="#cfaa63" />
         <path d="M-150 14 L-186 6 L-166 -2 L-116 8 Z" :fill="`url(#${uid}wing)`" opacity="0.9" />
         <!-- fuselage -->
         <path d="M-160 4 C-160 -20 -130 -30 -90 -30 L78 -30 C126 -30 152 -14 166 6 C150 26 124 38 78 38 L-92 38 C-130 38 -160 28 -160 4 Z" :fill="`url(#${uid}hull)`" />
         <path d="M-158 14 C-150 28 -126 36 -92 36 L78 36 C122 36 146 26 162 10 L150 6 C128 22 100 26 70 26 L-96 26 C-126 26 -146 22 -158 14 Z" fill="#dfe6f3" opacity="0.7" />
-        <path d="M-150 2 H150" stroke="#3f6bff" stroke-width="3.2" stroke-linecap="round" />
+        <path d="M-150 2 H150" stroke="#cfaa63" stroke-width="3.2" stroke-linecap="round" />
         <!-- cockpit + windows -->
         <path d="M128 -12 L150 -2 L128 0 Z" fill="#1a2133" />
         <g fill="#1a2133"><rect v-for="i in 20" :key="i" :x="-118 + (i - 1) * 10.5" y="-14" width="5.2" height="7" rx="2.4" /></g>
         <!-- near wing + engine -->
         <path d="M14 24 L-74 122 L-40 126 L92 28 Z" :fill="`url(#${uid}wing)`" />
-        <path d="M-74 122 L-40 126 L-46 136 L-82 130 Z" fill="#3f6bff" />
+        <path d="M-74 122 L-40 126 L-46 136 L-82 130 Z" fill="#cfaa63" />
         <g><rect x="36" y="42" width="56" height="26" rx="13" fill="#e9eef8" /><rect x="84" y="42" width="10" height="26" rx="5" fill="#1a2133" /><rect x="36" y="42" width="56" height="26" rx="13" fill="none" stroke="#b8c4dc" /></g>
       </g>
     </g>
@@ -237,15 +237,15 @@ const orbitPath = (rx: number, ry: number) => `M ${-rx} 0 A ${rx} ${ry} 0 1 1 ${
 
 <style scoped>
 .art {
-  --art-shadow: rgb(79 123 255 / 0.22); --art-ring: rgb(255 255 255 / 0.06); --art-ring-strong: rgb(255 255 255 / 0.25); --art-accent: #6f95ff;
+  --art-shadow: rgb(207 170 99 / 0.22); --art-ring: rgb(255 255 255 / 0.06); --art-ring-strong: rgb(255 255 255 / 0.25); --art-accent: #e0bf7c;
   --art-cloud: rgb(255 255 255 / 0.07); --art-trail: rgb(255 255 255 / 0.3);
-  --art-sphere-a: #2a3f8f; --art-sphere-b: #0b1433; --art-halo: rgb(79 123 255 / 0.12); --art-dots: 0.9; --art-orbit: rgb(168 192 255 / 0.55);
+  --art-sphere-a: #2b4678; --art-sphere-b: #0a1427; --art-halo: rgb(207 170 99 / 0.12); --art-dots: 0.9; --art-orbit: rgb(236 215 166 / 0.55);
   width: 100%; height: 100%; overflow: visible; user-select: none;
 }
 [data-theme='light'] .art {
-  --art-shadow: rgb(20 40 100 / 0.16); --art-ring: rgb(36 71 219 / 0.08); --art-ring-strong: rgb(36 71 219 / 0.3); --art-accent: #2f55e0;
-  --art-cloud: rgb(255 255 255 / 0.85); --art-trail: rgb(79 123 255 / 0.4);
-  --art-sphere-a: #ffffff; --art-sphere-b: #cbd8ff; --art-halo: rgb(79 123 255 / 0.1); --art-dots: 0.75; --art-orbit: rgb(47 85 224 / 0.5);
+  --art-shadow: rgb(12 24 50 / 0.16); --art-ring: rgb(168 129 47 / 0.1); --art-ring-strong: rgb(168 129 47 / 0.32); --art-accent: #a8812f;
+  --art-cloud: rgb(255 255 255 / 0.85); --art-trail: rgb(207 170 99 / 0.4);
+  --art-sphere-a: #ffffff; --art-sphere-b: #e9dcc0; --art-halo: rgb(207 170 99 / 0.1); --art-dots: 0.75; --art-orbit: rgb(168 129 47 / 0.5);
 }
 .art__in { animation: artIn 0.9s var(--ease) both; transform-box: fill-box; transform-origin: center; }
 @keyframes artIn { from { opacity: 0; transform: translateY(18px) scale(0.94); } }

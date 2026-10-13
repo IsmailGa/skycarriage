@@ -53,7 +53,7 @@ onBeforeUnmount(() => ctx?.revert())
           </picture>
           <figcaption><AppIcon name="plane" :size="16" /> {{ t('ground.capB') }}</figcaption>
         </figure>
-        <div class="go__badge" aria-hidden="true"><strong class="num"><AnimatedNumber :to="180" suffix="+" /></strong><span>{{ t('ground.badge') }}</span></div>
+        <div class="go__badge" aria-hidden="true"><strong class="num"><AnimatedNumber :to="6" /></strong><span>{{ t('ground.badge') }}</span></div>
       </div>
     </div>
   </section>

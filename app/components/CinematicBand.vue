@@ -64,7 +64,7 @@ onBeforeUnmount(() => ctx?.revert())
 .cb .container { display: grid; gap: 32px; }
 .cb__text { font-family: var(--font-display); font-weight: 600; font-size: clamp(30px, 5.2vw, 76px); line-height: 1.06; letter-spacing: var(--ls-display); max-width: 1100px; padding-bottom: clamp(56px, 8vw, 112px); text-wrap: balance; }
 .cb__w { display: inline; }
-.cb__frame { position: relative; height: clamp(380px, 62vw, 780px); overflow: hidden; clip-path: inset(0% 14% round 40px); background: #0b1a3d; }
+.cb__frame { position: relative; height: clamp(380px, 62vw, 780px); overflow: hidden; clip-path: inset(0% 14% round 40px); background: #0d1a33; }
 .cb__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 35% 40%; will-change: transform; }
 .cb__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(7 8 11 / 0.15), rgb(7 8 11 / 0.05) 40%, rgb(7 8 11 / 0.72)); }
 .cb__chips { position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(20px, 4vw, 48px); display: flex; flex-wrap: wrap; gap: 12px; }

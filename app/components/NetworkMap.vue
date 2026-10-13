@@ -55,7 +55,7 @@ onBeforeUnmount(() => ctx?.revert())
           <img class="net__dots" src="/media/world-dots.svg" :width="MAP_W" :height="MAP_H" alt="" loading="lazy" decoding="async" />
           <svg :viewBox="`0 0 ${MAP_W} ${MAP_H}`" preserveAspectRatio="xMidYMid meet" class="net__svg" aria-hidden="true">
             <defs>
-              <linearGradient id="arcg" x1="0" x2="1"><stop offset="0" stop-color="#4f7bff" /><stop offset="1" stop-color="#a8c0ff" /></linearGradient>
+              <linearGradient id="arcg" x1="0" x2="1"><stop offset="0" stop-color="#cfaa63" /><stop offset="1" stop-color="#ecd7a6" /></linearGradient>
             </defs>
             <g fill="none" stroke-linecap="round">
               <path v-for="a in arcs" :id="`p-${a.id}`" :key="a.id" class="arc" :d="a.d" stroke="url(#arcg)" :stroke-width="active === a.id ? 2.4 : 1.4" :opacity="isLit(a.id) ? 0.9 : 0.12" />
@@ -64,12 +64,11 @@ onBeforeUnmount(() => ctx?.revert())
               <circle r="3.2" fill="#fff"><animateMotion :dur="`${a.dur}s`" repeatCount="indefinite" :begin="`${i * 0.6}s`"><mpath :href="`#p-${a.id}`" /></animateMotion></circle>
             </g>
             <g v-for="n in nodes" :key="n.code" class="node" :opacity="nodeLit(n.code) ? 1 : 0.25" @pointerenter="hoverNode = n.code" @pointerleave="hoverNode = null">
-              <circle :cx="n.x" :cy="n.y" r="11" fill="#4f7bff" opacity="0.25"><animate attributeName="r" values="8;14;8" dur="3.4s" repeatCount="indefinite" /><animate attributeName="opacity" values="0.35;0.05;0.35" dur="3.4s" repeatCount="indefinite" /></circle>
-              <circle :cx="n.x" :cy="n.y" r="4" fill="#fff" stroke="#4f7bff" stroke-width="2" />
+              <circle :cx="n.x" :cy="n.y" r="11" fill="#cfaa63" opacity="0.25"><animate attributeName="r" values="8;14;8" dur="3.4s" repeatCount="indefinite" /><animate attributeName="opacity" values="0.35;0.05;0.35" dur="3.4s" repeatCount="indefinite" /></circle>
+              <circle :cx="n.x" :cy="n.y" r="4" fill="#fff" stroke="#cfaa63" stroke-width="2" />
               <text :x="n.x + n.lx" :y="n.y + n.ly" class="lbl">{{ hoverNode === n.code ? cityOf(t(`airports.${n.code}`)) : n.code }}</text>
             </g>
           </svg>
-          <p class="net__live"><i />{{ t('network.live') }}</p>
         </div>
 
         <aside v-reveal="0.1" class="net__lanes" aria-labelledby="lanes-title">
@@ -96,7 +95,7 @@ onBeforeUnmount(() => ctx?.revert())
 <style scoped>
 .net { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 16px; align-items: stretch; }
 /* the map panel stays navy in both themes: it reads as a "screen" and keeps the glowing routes legible */
-.net__map { position: relative; border-radius: var(--radius); overflow: hidden; background: radial-gradient(ellipse 70% 60% at 50% 45%, #14245a 0%, #07080b 75%); min-height: 420px; display: grid; place-items: center; padding: clamp(12px, 3vw, 32px) clamp(8px, 2vw, 24px) clamp(56px, 7vw, 72px); border: 1px solid var(--line); }
+.net__map { position: relative; border-radius: var(--radius); overflow: hidden; background: radial-gradient(ellipse 70% 60% at 50% 45%, #1c3260 0%, #0a1220 75%); min-height: 420px; display: grid; place-items: center; padding: clamp(12px, 3vw, 32px) clamp(8px, 2vw, 24px) clamp(56px, 7vw, 72px); border: 1px solid var(--line); }
 .net__dots, .net__svg { grid-area: 1 / 1; width: 100%; height: auto; }
 .net__dots { opacity: 0.4; }
 .lbl { font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; fill: rgb(255 255 255 / 0.85); paint-order: stroke; stroke: rgb(7 8 11 / 0.7); stroke-width: 3px; pointer-events: none; }
@@ -118,8 +117,9 @@ onBeforeUnmount(() => ctx?.revert())
 .net__lanes em { font-style: normal; color: var(--blue); }
 .net__lanes small { font-size: 13px; color: var(--mute); }
 .net__lanes b { padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; background: var(--chip-2); white-space: nowrap; transition: background 0.3s, color 0.3s; }
-.net__lanes button.on b, .net__lanes button:hover b { background: var(--blue); color: #fff; }
+.net__lanes button.on b, .net__lanes button:hover b { background: var(--blue); color: var(--on-accent); }
 
 @media (max-width: 1000px) { .net { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .net__map { min-height: 260px; padding-bottom: 64px; } .lbl { font-size: 15px; } .net__lanes { padding: 24px 20px 12px; } .net__live { font-size: 12px; left: 12px; right: 12px; bottom: 12px; } }
 </style>
+

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import gsap from 'gsap'
-import { airports, cityOf, distanceKm, transitDays } from '~/data/network'
+import type { RouteOption } from '~/composables/useRoutePicker'
 import { cargoKeys } from '~/data/services'
 import { site } from '~/data/site'
 
@@ -17,6 +17,16 @@ const serverError = ref('')
 const minDate = ref('')
 const card = ref<HTMLElement>()
 
+// route entered in the hero calculator
+const prefill = useState<{ from: string; to: string; weight: string } | null>('quotePrefill', () => null)
+watch(prefill, (p) => {
+  if (!p) return
+  Object.assign(form, { from: p.from, to: p.to, weight: p.weight })
+  Object.keys(errors).forEach((k) => delete errors[k])
+  status.value = 'idle'
+  prefill.value = null
+}, { immediate: true })
+
 onMounted(() => {
   const d = new Date()
   const iso = (x: Date) => new Date(x.getTime() - x.getTimezoneOffset() * 6e4).toISOString().slice(0, 10)
@@ -25,22 +35,13 @@ onMounted(() => {
   form.date = iso(d)
 })
 
-const options = computed(() => Object.keys(airports).map((code) => `${code} — ${t(`airports.${code}`)}`))
-const codeOf = (v: string) => {
-  const m = v.toUpperCase().match(/\b([A-Z]{3})\b/)
-  if (m && airports[m[1]!]) return m[1]!
-  const q = v.trim().toLowerCase()
-  return Object.keys(airports).find((c) => cityOf(t(`airports.${c}`)).toLowerCase() === q)
-}
-const fromCode = computed(() => codeOf(form.from))
-const toCode = computed(() => codeOf(form.to))
-const estimate = computed(() => {
-  if (!fromCode.value || !toCode.value || fromCode.value === toCode.value) return null
-  const km = distanceKm(fromCode.value, toCode.value)
-  const [a, b] = transitDays(km)
-  const days = a === b ? (a === 1 ? t('quote.days.one', { n: a }) : t('quote.days.many', { n: a })) : t('quote.days.range', { a, b })
-  return { km, days }
-})
+const cargoOptions = computed(() => cargoKeys.map((c) => ({ value: c, label: t(`quote.cargoTypes.${c}`) })))
+const route = useRoutePicker(form)
+const { fromCode, toCode, estimate } = route
+const toField = ref<{ focus: () => void } | null>(null)
+// once the origin is picked, jump to the destination so its re-ranked list opens straight away
+function onPick(side: 'from' | 'to') { if (side === 'from' && !toCode.value) nextTick(() => toField.value?.focus()) }
+function chip(side: 'from' | 'to', o: RouteOption) { route.choose(side, o); delete errors[side] }
 const tween = reactive({ km: 0 })
 watch(() => estimate.value?.km, (km) => {
   if (km == null) return
@@ -94,12 +95,12 @@ const firstName = computed(() => (form.name.trim() ? `, ${form.name.trim().split
     <div class="container">
       <div class="q">
         <div class="q__glow" aria-hidden="true" />
-        <div class="q__copy">
+        <div id="contact" class="q__copy">
           <p v-reveal class="eyebrow">{{ t('quote.eyebrow') }}</p>
           <h2 id="quote-title" v-reveal="0.08" class="q__h"><BrLines :lines="title" /></h2>
           <p v-reveal="0.16" class="q__lead">{{ t('quote.lead') }}</p>
           <ul v-reveal="0.24" class="q__contact">
-            <li><span><AppIcon name="phone" :size="18" /></span><a :href="`tel:${site.phoneHref}`">{{ site.phone }}</a> · {{ t('quote.phoneNote') }}</li>
+            <li><span><AppIcon name="phone" :size="18" /></span><a :href="`tel:${site.phoneHref}`">{{ site.phone }}</a></li>
             <li><span><AppIcon name="mail" :size="18" /></span><a :href="`mailto:${site.email}`">{{ site.email }}</a></li>
           </ul>
           <div class="q__scene" aria-hidden="true"><CargoArt model="parcels" decorative /></div>
@@ -118,16 +119,18 @@ const firstName = computed(() => (form.name.trim() ? `, ${form.name.trim().split
               <div class="q__row">
                 <label class="f" :class="{ bad: errors.from }">
                   <span>{{ lbl.a }}</span>
-                  <input v-model="form.from" list="airports" :placeholder="t('quote.ph.from')" autocomplete="off" :aria-invalid="!!errors.from" @input="delete errors.from" />
+                  <UiAutocomplete v-model="form.from" :groups="route.groupsFor('from')" :placeholder="t('quote.ph.from')" :invalid="!!errors.from" :empty-text="t('route.empty')" :clear-label="t('route.clear')" @update:model-value="delete errors.from" @pick="onPick('from')" />
                   <small v-if="errors.from" role="alert">{{ t(`quote.errors.${errors.from}`) }}</small>
                 </label>
                 <label class="f" :class="{ bad: errors.to }">
                   <span>{{ lbl.b }}</span>
-                  <input v-model="form.to" list="airports" :placeholder="t('quote.ph.to')" autocomplete="off" :aria-invalid="!!errors.to" @input="delete errors.to" />
+                  <UiAutocomplete ref="toField" v-model="form.to" :groups="route.groupsFor('to')" :placeholder="t('quote.ph.to')" :invalid="!!errors.to" :empty-text="t('route.empty')" :clear-label="t('route.clear')" @update:model-value="delete errors.to" @pick="onPick('to')" />
                   <small v-if="errors.to" role="alert">{{ t(`quote.errors.${errors.to}`) }}</small>
                 </label>
               </div>
-              <datalist id="airports"><option v-for="o in options" :key="o" :value="o" /></datalist>
+              <RouteChips :label="route.chipsFor('to').label" :options="route.chipsFor('to').items" @pick="chip('to', $event)" />
+              <RouteChips :label="route.chipsFor('from').label" :options="route.chipsFor('from').items" @pick="chip('from', $event)" />
+              
 
               <div class="q__row">
                 <label class="f" :class="{ bad: errors.weight }">
@@ -145,7 +148,7 @@ const firstName = computed(() => (form.name.trim() ? `, ${form.name.trim().split
               <div class="q__row">
                 <label class="f">
                   <span>{{ t('quote.cargo') }}</span>
-                  <span class="sel"><select v-model="cargo"><option v-for="c in cargoKeys" :key="c" :value="c">{{ t(`quote.cargoTypes.${c}`) }}</option></select><AppIcon name="chevronDown" :size="18" :stroke="2" /></span>
+                  <UiSelect v-model="cargo" :options="cargoOptions" :aria-label="t('quote.cargo')" />
                 </label>
                 <label class="f" :class="{ bad: errors.date }">
                   <span>{{ t('quote.date') }}</span>
@@ -200,7 +203,7 @@ const firstName = computed(() => (form.name.trim() ? `, ${form.name.trim().split
 
 <style scoped>
 /* The CTA block stays dark in both themes (strong accent moment); the form card follows the theme. */
-.q { position: relative; overflow: hidden; isolation: isolate; border-radius: clamp(28px, 3vw, 40px); background: linear-gradient(120deg, #0a1333, #07080b 70%); color: #fff; padding: clamp(28px, 5vw, 72px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 540px); gap: clamp(32px, 5vw, 64px); align-items: center; border: 1px solid var(--line); }
+.q { position: relative; overflow: hidden; isolation: isolate; border-radius: clamp(28px, 3vw, 40px); background: linear-gradient(120deg, #14264a, #0a1220 70%); color: #fff; padding: clamp(28px, 5vw, 72px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 540px); gap: clamp(32px, 5vw, 64px); align-items: center; border: 1px solid var(--line); }
 .q__glow { position: absolute; z-index: -1; left: -200px; top: -260px; width: 700px; height: 600px; border-radius: 50%; background: var(--blue); opacity: 0.4; filter: blur(130px); }
 .q__copy { display: grid; gap: 24px; justify-items: start; position: relative; align-self: stretch; align-content: center; }
 .q__copy .eyebrow { color: var(--blue-2); }
@@ -226,7 +229,7 @@ form { display: grid; gap: 16px; }
 .f input, .f select { width: 100%; min-width: 0; padding: 15px 16px; border-radius: 14px; background: var(--input-bg); border: 1px solid var(--input-line); font-weight: 500; font-size: 16px; transition: border-color 0.25s, box-shadow 0.25s, background 0.25s; appearance: none; color-scheme: inherit; }
 .f select option { background: var(--surface); color: var(--fg); }
 .f input::placeholder { color: var(--mute); opacity: 0.75; font-weight: 400; }
-.f input:focus, .f select:focus { outline: none; background: var(--input-bg-focus); border-color: var(--blue); box-shadow: 0 0 0 4px rgb(79 123 255 / 0.18); }
+.f input:focus, .f select:focus { outline: none; background: var(--input-bg-focus); border-color: var(--blue); box-shadow: 0 0 0 4px rgb(207 170 99 / 0.18); }
 .f.bad input { border-color: var(--err); background: var(--err-bg); }
 .f small { font-size: 12.5px; color: var(--err); }
 .sel { position: relative; display: block; }

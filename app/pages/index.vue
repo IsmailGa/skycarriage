@@ -83,7 +83,7 @@ useHead(() => ({ script: [{ type: 'application/ld+json', innerHTML: JSON.stringi
     <GroundOps />
     <WhyUs />
     <NetworkMap />
-    <TestimonialsSection />
+    <!-- <PartnersSection /> -->
     <FaqSection />
     <QuoteSection />
   </div>

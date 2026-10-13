@@ -48,14 +48,14 @@ onBeforeUnmount(() => ctx?.revert())
 <style scoped>
 .hiw__steps { --p: 0; position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .hiw__rail { position: absolute; left: 26px; right: 26px; top: 26px; height: 2px; background: var(--line-strong); border-radius: 2px; }
-.hiw__rail-fill { position: absolute; inset: 0; transform-origin: left; transform: scaleX(var(--p)); background: linear-gradient(90deg, var(--blue), var(--blue-2)); border-radius: 2px; box-shadow: 0 0 14px rgb(79 123 255 / 0.6); }
+.hiw__rail-fill { position: absolute; inset: 0; transform-origin: left; transform: scaleX(var(--p)); background: linear-gradient(90deg, var(--blue), var(--blue-2)); border-radius: 2px; box-shadow: 0 0 14px rgb(207 170 99 / 0.6); }
 .hiw__step { position: relative; padding: 32px 32px 36px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); display: grid; gap: 12px; align-content: start; transition: background 0.6s var(--ease), color 0.6s, border-color 0.6s; }
 .hiw__n { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-display); font-weight: 600; font-size: 17px; background: var(--bg); border: 1px solid var(--line-strong); margin-bottom: 36px; position: relative; z-index: 1; transition: background 0.5s, color 0.5s, box-shadow 0.5s, border-color 0.5s; }
 .hiw__step h3 { font-family: var(--font-display); font-weight: 600; font-size: 24px; letter-spacing: var(--ls-display); line-height: 1.15; }
 .hiw__step p { font-size: 16px; line-height: 1.5; color: var(--mute); transition: color 0.5s; }
 .hiw__step.on { background: var(--on-bg); color: var(--on-fg); border-color: transparent; }
 .hiw__step.on p { color: var(--on-mute); }
-.hiw__step.on .hiw__n { background: var(--blue); color: #fff; border-color: transparent; box-shadow: 0 0 0 8px rgb(79 123 255 / 0.22); }
+.hiw__step.on .hiw__n { background: var(--blue); color: var(--on-accent); border-color: transparent; box-shadow: 0 0 0 8px rgb(207 170 99 / 0.22); }
 
 @media (max-width: 900px) {
   .hiw__steps { grid-template-columns: 1fr; }
@@ -65,3 +65,4 @@ onBeforeUnmount(() => ctx?.revert())
   .hiw__n { position: absolute; left: 26px; top: 28px; margin: 0; }
 }
 </style>
+

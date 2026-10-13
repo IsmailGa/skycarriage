@@ -8,8 +8,8 @@ const cargo = useState<string>('cargoType', () => 'general')
 
 interface Tab { key: ArtKey; icon: 'zap' | 'box' | 'truck' | 'plane' | 'globe'; cargo: CargoKey }
 const tabs: Tab[] = [
-  { key: 'parcels', icon: 'zap', cargo: 'express' },
-  { key: 'uld', icon: 'box', cargo: 'consolidated' },
+  { key: 'parcels', icon: 'zap', cargo: 'general' },
+  { key: 'uld', icon: 'box', cargo: 'general' },
   { key: 'pallet', icon: 'truck', cargo: 'oversized' },
   { key: 'plane', icon: 'plane', cargo: 'oversized' },
   { key: 'globe', icon: 'globe', cargo: 'general' },
@@ -74,7 +74,7 @@ function onKey(e: KeyboardEvent) {
 <style scoped>
 .cx__grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr); gap: 16px; align-items: stretch; }
 .cx__stage {
-  --stage: radial-gradient(ellipse 65% 60% at 50% 42%, #18265a 0%, #0b0e14 78%);
+  --stage: radial-gradient(ellipse 65% 60% at 50% 42%, #1c3260 0%, #0a1220 78%);
   position: relative; border-radius: var(--radius); overflow: hidden; background: var(--stage); border: 1px solid var(--line); min-height: clamp(380px, 46vw, 600px);
 }
 [data-theme='light'] .cx__stage { --stage: radial-gradient(ellipse 65% 60% at 50% 42%, #ffffff 0%, #e6edff 55%, #dbe5ff 100%); }
@@ -87,10 +87,10 @@ function onKey(e: KeyboardEvent) {
 
 .cx__tabs { display: grid; gap: 10px; align-content: start; }
 .cx__tab { border-radius: var(--radius-sm); background: var(--card); border: 1px solid var(--line); overflow: hidden; transition: border-color 0.4s, box-shadow 0.5s var(--ease), background 0.4s; }
-.cx__tab.on { border-color: rgb(79 123 255 / 0.55); box-shadow: 0 0 0 4px rgb(79 123 255 / 0.1); }
+.cx__tab.on { border-color: rgb(207 170 99 / 0.55); box-shadow: 0 0 0 4px rgb(207 170 99 / 0.1); }
 .cx__tab > button { width: 100%; display: flex; align-items: center; gap: 14px; padding: 16px 18px; text-align: left; }
 .cx__ic { width: 44px; height: 44px; border-radius: 13px; display: grid; place-items: center; flex: none; color: var(--accent-text); background: var(--accent-soft); transition: background 0.4s, color 0.4s, transform 0.5s var(--ease); }
-.cx__tab.on .cx__ic { background: var(--blue); color: #fff; transform: rotate(-6deg) scale(1.05); }
+.cx__tab.on .cx__ic { background: var(--blue); color: var(--on-accent); transform: rotate(-6deg) scale(1.05); }
 .cx__name { flex: 1; font-family: var(--font-display); font-weight: 600; font-size: 18px; letter-spacing: var(--ls-display); }
 .cx__chev { color: var(--mute); transition: transform 0.5s var(--ease); flex: none; }
 .cx__tab.on .cx__chev { transform: rotate(180deg); color: var(--fg); }
@@ -107,3 +107,4 @@ function onKey(e: KeyboardEvent) {
 }
 @media (max-width: 520px) { .cx__chips { left: 10px; right: 10px; bottom: 10px; } .cx__chips span { padding: 7px 11px; } .cx__scene { inset: 8px 8px 96px; } }
 </style>
+
