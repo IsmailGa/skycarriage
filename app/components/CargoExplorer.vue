@@ -14,19 +14,25 @@ const tabs: Tab[] = [
   { key: 'plane', icon: 'plane', cargo: 'oversized' },
   { key: 'globe', icon: 'globe', cargo: 'general' },
 ]
-const active = ref<ArtKey>('uld')
+const active = ref<ArtKey>('uld') // which illustration the stage shows
+const opened = ref<ArtKey | null>('uld') // which card is expanded; null = all collapsed
 const specs = (k: ArtKey) => Array.from({ length: 3 }, (_, i) => ({ k: t(`explorer.tabs.${k}.specs[${i}].k`), v: t(`explorer.tabs.${k}.specs[${i}].v`) }))
 
 function quote(tab: Tab) {
   openQuote({ cargo: tab.cargo })
 }
+// click toggles the card; the illustration keeps showing the last one picked
+function toggle(k: ArtKey) {
+  active.value = k
+  opened.value = opened.value === k ? null : k
+}
+// arrow keys move focus between the card headers
 function onKey(e: KeyboardEvent) {
-  const i = tabs.findIndex((x) => x.key === active.value)
-  const d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0
-  if (!d) return
+  const i = tabs.findIndex((x) => `cx-tab-${x.key}` === (e.target as HTMLElement).id)
+  const d = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0
+  if (i < 0 || !d) return
   e.preventDefault()
-  active.value = tabs[(i + d + tabs.length) % tabs.length]!.key
-  nextTick(() => document.getElementById(`cx-tab-${active.value}`)?.focus())
+  document.getElementById(`cx-tab-${tabs[(i + d + tabs.length) % tabs.length]!.key}`)?.focus()
 }
 </script>
 
@@ -48,14 +54,14 @@ function onKey(e: KeyboardEvent) {
           </div>
         </div>
 
-        <div v-reveal="0.08" class="cx__tabs" role="tablist" :aria-label="t('explorer.tabsLabel')" aria-orientation="vertical" @keydown="onKey">
-          <div v-for="tab in tabs" :key="tab.key" class="cx__tab" :class="{ on: active === tab.key }">
-            <button :id="`cx-tab-${tab.key}`" role="tab" :aria-selected="active === tab.key" :aria-controls="`cx-panel-${tab.key}`" :tabindex="active === tab.key ? 0 : -1" @click="active = tab.key">
+        <div v-reveal="0.08" class="cx__tabs" role="group" :aria-label="t('explorer.tabsLabel')" @keydown="onKey">
+          <div v-for="tab in tabs" :key="tab.key" class="cx__tab" :class="{ on: opened === tab.key, cur: active === tab.key }">
+            <button :id="`cx-tab-${tab.key}`" :aria-expanded="opened === tab.key" :aria-controls="`cx-panel-${tab.key}`" @click="toggle(tab.key)">
               <span class="cx__ic"><AppIcon :name="tab.icon" :size="22" /></span>
               <span class="cx__name">{{ t(`explorer.tabs.${tab.key}.tab`) }}</span>
               <AppIcon name="chevronDown" :size="18" :stroke="2" class="cx__chev" />
             </button>
-            <div :id="`cx-panel-${tab.key}`" class="cx__panel" role="tabpanel" :aria-labelledby="`cx-tab-${tab.key}`" :hidden="active !== tab.key ? undefined : undefined">
+            <div :id="`cx-panel-${tab.key}`" class="cx__panel" role="region" :aria-labelledby="`cx-tab-${tab.key}`" :inert="opened !== tab.key">
               <div>
                 <h3>{{ t(`explorer.tabs.${tab.key}.title`) }}</h3>
                 <p>{{ t(`explorer.tabs.${tab.key}.desc`) }}</p>
