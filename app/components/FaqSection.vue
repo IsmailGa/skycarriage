@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { t } = useI18n()
+const { openQuote } = useQuote()
 const title = useMsgList('faq.title')
 const faqs = useMsgList('faq.items', ['q', 'a'] as const)
 const open = ref<number | null>(0)
@@ -10,10 +11,9 @@ const toggle = (i: number) => (open.value = open.value === i ? null : i)
   <section id="faq" class="section section--light" aria-labelledby="faq-title">
     <div class="container faq">
       <div class="faq__head">
-        <p v-reveal class="eyebrow">{{ t('faq.eyebrow') }}</p>
         <h2 id="faq-title" v-reveal="0.08" class="h2"><BrLines :lines="title" /></h2>
         <p v-reveal="0.16" class="lead">{{ t('faq.lead') }}</p>
-        <a v-reveal="0.22" href="#quote" class="btn btn--solid btn--sm" @click.prevent="scrollToId('quote')">{{ t('faq.cta') }} <AppIcon name="arrow" :size="16" :stroke="2" /></a>
+        <a v-reveal="0.22" href="#quote" class="btn btn--solid btn--sm" @click.prevent="openQuote()">{{ t('faq.cta') }} <AppIcon name="arrow" :size="16" :stroke="2" /></a>
       </div>
 
       <div class="faq__list">

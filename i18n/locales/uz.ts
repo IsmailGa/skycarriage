@@ -27,6 +27,7 @@ const uz: typeof en = {
     prev: 'Oldingisi',
     next: 'Keyingisi',
     backToTop: 'Yuqoriga',
+    closeDialog: 'Yopish',
   },
   nav: { services: 'Xizmatlar', how: 'Qanday ishlaydi', why: 'Nega biz', network: 'Tarmoq', faq: 'Savollar', quote: 'Narxni bilish', menuCta: 'Tezkor hisob-kitob' },
   hero: {
@@ -43,6 +44,10 @@ const uz: typeof en = {
     calcTitle: 'Bir daqiqada hisob-kitob',
     calcSub: 'Yoʻnalishni kiriting, soʻrovni biz toʻldiramiz',
     calcSwap: 'Joʻnatish va yetkazish joyini almashtirish',
+    calcNext: 'Davom etish',
+    calcContactTitle: 'Tarifni qayerga yuboraylik?',
+    calcBack: 'Marshrutni oʻzgartirish',
+    calcFull: 'Batafsil maʼlumot kiritish',
   },
   route: {
     hubs: 'Mashhur aeroportlar',

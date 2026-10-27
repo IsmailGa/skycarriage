@@ -26,6 +26,7 @@ const ru: typeof en = {
     prev: 'Назад',
     next: 'Вперёд',
     backToTop: 'Наверх',
+    closeDialog: 'Закрыть',
   },
   nav: { services: 'Услуги', how: 'Как это работает', why: 'Почему мы', network: 'Сеть', faq: 'Вопросы', quote: 'Узнать цену', menuCta: 'Быстрый расчёт' },
   hero: {
@@ -42,6 +43,10 @@ const ru: typeof en = {
     calcTitle: 'Расчёт за минуту',
     calcSub: 'Укажите маршрут, и мы заполним заявку',
     calcSwap: 'Поменять местами отправление и назначение',
+    calcNext: 'Продолжить',
+    calcContactTitle: 'Куда отправить тариф?',
+    calcBack: 'Изменить маршрут',
+    calcFull: 'Указать больше деталей',
   },
   route: {
     hubs: 'Популярные аэропорты',

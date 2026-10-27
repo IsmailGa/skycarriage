@@ -27,7 +27,6 @@ onBeforeUnmount(() => ctx?.revert())
   <section id="operations" ref="root" class="section section--light go" aria-labelledby="go-title">
     <div class="container go__grid">
       <div class="go__copy">
-        <p v-reveal class="eyebrow">{{ t('ground.eyebrow') }}</p>
         <h2 id="go-title" v-reveal="0.08" class="h2"><BrLines :lines="title" /></h2>
         <p v-reveal="0.16" class="lead">{{ t('ground.lead') }}</p>
         <ul class="go__list">

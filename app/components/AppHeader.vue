@@ -12,6 +12,11 @@ const scrolled = ref(false)
 const open = ref(false)
 const active = ref('')
 
+const { openQuote } = useQuote()
+function quote() {
+  open.value = false
+  nextTick(() => openQuote())
+}
 function go(id: string) {
   open.value = false
   nextTick(() => scrollToId(id))
@@ -67,7 +72,7 @@ onBeforeUnmount(() => {
       </nav>
       <div class="menu__foot">
         <div class="menu__tools"><LangSwitcher inline @pick="open = false" /><ThemeToggle /></div>
-        <a href="#quote" class="btn btn--blue menu__cta" @click.prevent="go('quote')">{{ t('nav.menuCta') }} <AppIcon name="arrow" :size="18" :stroke="2" /></a>
+        <a href="#quote" class="btn btn--blue menu__cta" @click.prevent="quote()">{{ t('nav.menuCta') }} <AppIcon name="arrow" :size="18" :stroke="2" /></a>
       </div>
     </div>
   </header>

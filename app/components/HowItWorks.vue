@@ -28,7 +28,6 @@ onBeforeUnmount(() => ctx?.revert())
   <section id="how-it-works" ref="root" class="section section--white" aria-labelledby="hiw-title">
     <div class="container">
       <div class="sec-head sec-head--center">
-        <p v-reveal class="eyebrow">{{ t('how.eyebrow') }}</p>
         <h2 id="hiw-title" v-reveal="0.08" class="h2"><BrLines :lines="title" /></h2>
         <p v-reveal="0.16" class="lead">{{ t('how.lead') }}</p>
       </div>

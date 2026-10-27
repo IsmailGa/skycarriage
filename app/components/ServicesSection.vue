@@ -3,11 +3,10 @@ import { services, type Service } from '~/data/services'
 
 const { t } = useI18n()
 const title = useMsgList('services.title')
-const cargo = useState<string>('cargoType', () => 'general')
+const { openQuote } = useQuote()
 
 function pick(s: Service) {
-  cargo.value = s.cargo
-  scrollToId('quote')
+  openQuote({ cargo: s.cargo })
 }
 </script>
 
@@ -16,12 +15,11 @@ function pick(s: Service) {
     <div class="container">
       <div class="sec-head">
         <div class="sec-head__l">
-          <p v-reveal class="eyebrow">{{ t('services.eyebrow') }}</p>
           <h2 id="services-title" v-reveal="0.08" class="h2"><BrLines :lines="title" /></h2>
         </div>
         <div v-reveal="0.16" class="sec-head__r">
           <p class="lead">{{ t('services.lead') }}</p>
-          <a href="#quote" class="btn btn--outline btn--sm" @click.prevent="scrollToId('quote')">{{ t('services.cta') }} <AppIcon name="arrow" :size="16" :stroke="2" /></a>
+          <a href="#quote" class="btn btn--outline btn--sm" @click.prevent="openQuote()">{{ t('services.cta') }} <AppIcon name="arrow" :size="16" :stroke="2" /></a>
         </div>
       </div>
 

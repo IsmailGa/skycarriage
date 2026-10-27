@@ -40,7 +40,6 @@ onBeforeUnmount(() => ctx?.revert())
 <template>
   <section ref="root" class="cb" aria-label="Independence">
     <div class="container">
-      <p v-reveal class="eyebrow">{{ t('band.eyebrow') }}</p>
       <p class="cb__text">
         <template v-for="(w, i) in words" :key="i"><span class="cb__w">{{ w }}</span>{{ ' ' }}</template>
       </p>

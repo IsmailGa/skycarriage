@@ -44,7 +44,6 @@ onBeforeUnmount(() => ctx?.revert())
     <div class="container">
       <div class="sec-head">
         <div class="sec-head__l">
-          <p v-reveal class="eyebrow">{{ t('network.eyebrow') }}</p>
           <h2 id="net-title" v-reveal="0.08" class="h2"><BrLines :lines="title" /></h2>
         </div>
         <p v-reveal="0.16" class="lead">{{ t('network.lead') }}</p>

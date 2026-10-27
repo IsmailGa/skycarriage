@@ -18,7 +18,6 @@ function glow(e: PointerEvent) {
     <div class="container">
       <div class="sec-head">
         <div class="sec-head__l">
-          <p v-reveal class="eyebrow">{{ t('partners.eyebrow') }}</p>
           <h2 id="pt-title" v-reveal="0.08" class="h2"><BrLines :lines="title" /></h2>
         </div>
         <p v-reveal="0.16" class="lead">{{ t('partners.lead') }}</p>

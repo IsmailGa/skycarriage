@@ -4,7 +4,7 @@ import type { ArtKey } from '~/data/cargo'
 
 const { t } = useI18n()
 const title = useMsgList('explorer.title')
-const cargo = useState<string>('cargoType', () => 'general')
+const { openQuote } = useQuote()
 
 interface Tab { key: ArtKey; icon: 'zap' | 'box' | 'truck' | 'plane' | 'globe'; cargo: CargoKey }
 const tabs: Tab[] = [
@@ -18,8 +18,7 @@ const active = ref<ArtKey>('uld')
 const specs = (k: ArtKey) => Array.from({ length: 3 }, (_, i) => ({ k: t(`explorer.tabs.${k}.specs[${i}].k`), v: t(`explorer.tabs.${k}.specs[${i}].v`) }))
 
 function quote(tab: Tab) {
-  cargo.value = tab.cargo
-  scrollToId('quote')
+  openQuote({ cargo: tab.cargo })
 }
 function onKey(e: KeyboardEvent) {
   const i = tabs.findIndex((x) => x.key === active.value)
@@ -36,7 +35,6 @@ function onKey(e: KeyboardEvent) {
     <div class="container">
       <div class="sec-head">
         <div class="sec-head__l">
-          <p v-reveal class="eyebrow">{{ t('explorer.eyebrow') }}</p>
           <h2 id="cx-title" v-reveal="0.08" class="h2"><BrLines :lines="title" /></h2>
         </div>
         <p v-reveal="0.16" class="lead">{{ t('explorer.lead') }}</p>

@@ -22,4 +22,5 @@ useHead(() => ({
     <NuxtPage :page-key="locale" />
   </main>
   <AppFooter />
+  <QuoteDialog />
 </template>

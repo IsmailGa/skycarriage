@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import { site } from '~/data/site'
 
 const { t } = useI18n()
+const { openQuote } = useQuote()
 const h1 = useMsgList('hero.h1')
 const features = useMsgList('hero.features', ['t', 'd'] as const)
 const featureIcons = ['plane', 'door', 'file', 'shield'] as const
@@ -40,13 +41,12 @@ onBeforeUnmount(() => ctx?.revert())
 
       <div class="container hero__in">
         <div class="hero__copy">
-          <p class="hero__eyebrow rise" style="--d: 0.05s"><i />{{ t('hero.eyebrow') }}</p>
           <h1 id="hero-title" class="hero__h1">
             <span v-for="(line, i) in h1" :key="i" class="ln"><span :style="{ '--d': `${0.15 + i * 0.12}s` }" :class="{ 'gradient-text': i === 1 }">{{ line }}</span></span>
           </h1>
           <p class="hero__lead rise" style="--d: 0.6s">{{ t('hero.lead') }}</p>
           <div class="hero__cta rise" style="--d: 0.72s">
-            <a href="#quote" class="btn btn--blue" @click.prevent="scrollToId('quote')">{{ t('nav.quote') }} <AppIcon name="arrow" :size="18" :stroke="2" /></a>
+            <a href="#quote" class="btn btn--blue" @click.prevent="openQuote()">{{ t('nav.quote') }} <AppIcon name="arrow" :size="18" :stroke="2" /></a>
             <a :href="`tel:${site.phoneHref}`" class="btn btn--ghost"><AppIcon name="phone" :size="18" :stroke="2" /> {{ site.phone }}</a>
           </div>
         </div>

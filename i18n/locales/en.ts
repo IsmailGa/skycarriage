@@ -26,6 +26,7 @@ export default {
     prev: 'Previous',
     next: 'Next',
     backToTop: 'Back to top',
+    closeDialog: 'Close',
   },
   nav: { services: 'Services', how: 'How it works', why: 'Why us', network: 'Network', faq: 'FAQ', quote: 'Get a quote', menuCta: 'Get an instant quote' },
   hero: {
@@ -42,6 +43,10 @@ export default {
     calcTitle: 'Get a quote in a minute',
     calcSub: 'Enter your route and we’ll prefill the request',
     calcSwap: 'Swap origin and destination',
+    calcNext: 'Continue',
+    calcContactTitle: 'Where should we send the quote?',
+    calcBack: 'Change route',
+    calcFull: 'Add more details',
   },
   route: {
     hubs: 'Popular airports',
