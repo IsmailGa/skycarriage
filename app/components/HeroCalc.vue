@@ -174,7 +174,7 @@ form { display: grid; gap: 14px; }
 .f > span { font-size: 13px; font-weight: 500; color: var(--mute); }
 .f em { font-style: normal; opacity: 0.7; }
 .f input { width: 100%; min-width: 0; padding: 14px 15px; border-radius: 14px; background: var(--input-bg); border: 1px solid var(--input-line); font-weight: 500; font-size: 16px; transition: border-color 0.25s, box-shadow 0.25s, background 0.25s; }
-.f input::placeholder { color: var(--mute); opacity: 0.75; font-weight: 400; }
+.f input::placeholder { color: var(--mute); opacity: 0.95; font-weight: 400; }
 .f input:focus { outline: none; background: var(--input-bg-focus); border-color: var(--blue); box-shadow: 0 0 0 4px rgb(207 170 99 / 0.2); }
 .f.bad input { border-color: var(--err); background: var(--err-bg); }
 .f small { font-size: 12.5px; color: var(--err); }

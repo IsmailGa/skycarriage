@@ -69,7 +69,14 @@ onBeforeUnmount(() => ctx?.revert())
 <style scoped>
 .hero { position: relative; background: var(--bg); color: var(--fg); }
 /* the photo area is dark in both themes, so its text is always light */
-.hero__stage { --fg: #f5f6f8; --fg-2: rgb(245 246 248 / 0.84); --mute: #b4bfd2; --chip: rgb(255 255 255 / 0.08); --chip-2: rgb(255 255 255 / 0.14); --line-strong: rgb(255 255 255 / 0.22); color: #fff; }
+.hero__stage {
+  --fg: #f5f6f8; --fg-2: rgb(245 246 248 / 0.84); --mute: #b4bfd2; --chip: rgb(255 255 255 / 0.08); --chip-2: rgb(255 255 255 / 0.14); --line: rgb(255 255 255 / 0.12); --line-strong: rgb(255 255 255 / 0.22);
+  /* the calculator card and its fields: dark glass over the photo, whatever the page theme */
+  --glass: rgb(12 22 42 / 0.78); --glass-border: rgb(255 255 255 / 0.14); --shadow-card: 0 30px 60px rgb(0 0 0 / 0.5);
+  --input-bg: rgb(255 255 255 / 0.07); --input-bg-focus: rgb(255 255 255 / 0.12); --input-line: rgb(255 255 255 / 0.14);
+  --accent-soft: rgb(207 170 99 / 0.16); --accent-text: #e6cc93; --err: #ff8a8f; --err-bg: rgb(255 91 97 / 0.1);
+  color: #fff; color-scheme: dark;
+}
 .hero__stage { position: relative; overflow: hidden; isolation: isolate; padding: calc(var(--header-h) + clamp(32px, 6vw, 80px)) 0 clamp(56px, 7vw, 96px); display: flex; align-items: center; }
 .hero__media { position: absolute; inset: -2% 0 0; z-index: -1; will-change: transform; }
 .hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; filter: saturate(1) brightness(1) contrast(1.05); }
@@ -79,6 +86,7 @@ onBeforeUnmount(() => ctx?.revert())
 .hero__eyebrow { display: inline-flex; align-items: center; gap: 14px; font-size: 13px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--fg-2); }
 .hero__eyebrow i { width: 36px; height: 1px; background: var(--blue); }
 .hero__h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(38px, 5.6vw, 82px); line-height: 1.02; letter-spacing: var(--ls-display); text-transform: uppercase; }
+.hero__h1 .gradient-text { background-image: linear-gradient(90deg, #f6e4b8, #d3aa5f); } /* stays light gold over the photo in both themes */
 .ln { display: block; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; }
 .ln > span { display: inline-block; animation: lineUp 1.1s var(--ease) both; animation-delay: var(--d); }
 .hero__lead { max-width: 520px; font-size: clamp(16px, 1.4vw, 19px); line-height: 1.55; color: var(--fg-2); }

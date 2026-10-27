@@ -41,5 +41,6 @@ const title = useMsgList('quote.title')
 .q__scene { position: absolute; right: -40px; bottom: -60px; width: 300px; height: 300px; pointer-events: none; opacity: 0.95; }
 
 .q__card { background: var(--surface); color: var(--fg); border-radius: var(--radius); padding: clamp(24px, 2.6vw, 36px); box-shadow: 0 30px 60px rgb(0 0 0 / 0.4); position: relative; z-index: 1; }
-@media (max-width: 1000px) { .q { grid-template-columns: 1fr; } .q__card { max-width: 640px; } .q__scene { display: none; } }
+@media (max-width: 1240px) { .q__scene { display: none; } }
+@media (max-width: 1000px) { .q { grid-template-columns: 1fr; } .q__card { max-width: 640px; } }
 </style>

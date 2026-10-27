@@ -113,7 +113,7 @@ onBeforeUnmount(() => ctx?.revert())
 .net__lanes button:hover, .net__lanes button.on { background: var(--chip); }
 .net__lanes span { display: grid; gap: 3px; }
 .net__lanes strong { font-family: var(--font-display); font-weight: 600; font-size: 18px; letter-spacing: -0.02em; }
-.net__lanes em { font-style: normal; color: var(--blue); }
+.net__lanes em { font-style: normal; color: var(--accent-text); }
 .net__lanes small { font-size: 13px; color: var(--mute); }
 .net__lanes b { padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; background: var(--chip-2); white-space: nowrap; transition: background 0.3s, color 0.3s; }
 .net__lanes button.on b, .net__lanes button:hover b { background: var(--blue); color: var(--on-accent); }

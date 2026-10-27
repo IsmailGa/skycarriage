@@ -75,7 +75,7 @@ function onKey(e: KeyboardEvent) {
   --stage: radial-gradient(ellipse 65% 60% at 50% 42%, #1c3260 0%, #0a1220 78%);
   position: relative; border-radius: var(--radius); overflow: hidden; background: var(--stage); border: 1px solid var(--line); min-height: clamp(380px, 46vw, 600px);
 }
-[data-theme='light'] .cx__stage { --stage: radial-gradient(ellipse 65% 60% at 50% 42%, #ffffff 0%, #e6edff 55%, #dbe5ff 100%); }
+[data-theme='light'] .cx__stage { --stage: radial-gradient(ellipse 65% 60% at 50% 42%, #ffffff 0%, #eef0f6 55%, #e2e6ef 100%); }
 .cx__scene { position: absolute; inset: 14px 14px 76px; }
 .cx__chips { position: absolute; left: 16px; right: 16px; bottom: 16px; display: flex; flex-wrap: wrap; gap: 8px; z-index: 1; pointer-events: none; }
 .cx__chips span { display: grid; gap: 1px; padding: 9px 14px; border-radius: 14px; background: var(--glass); border: 1px solid var(--glass-border); backdrop-filter: blur(12px); color: var(--fg); animation: chipIn 0.6s var(--ease) both; }

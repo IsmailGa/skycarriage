@@ -39,6 +39,6 @@ const model = defineModel<string>({ required: true })
 .ui-item { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 12px; border-radius: 11px; font-size: 15px; font-weight: 500; cursor: pointer; user-select: none; outline: none; color: var(--fg-2); transition: background 0.15s, color 0.15s; }
 .ui-item[data-highlighted] { background: var(--chip-2); color: var(--fg); }
 .ui-item[data-state='checked'] { color: var(--fg); }
-.ui-check { color: var(--blue); display: grid; }
+.ui-check { color: var(--accent-text); display: grid; }
 @keyframes uiPop { from { opacity: 0; transform: translateY(-6px) scale(0.97); } }
 </style>
